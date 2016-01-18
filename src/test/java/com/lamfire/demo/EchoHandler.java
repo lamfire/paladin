@@ -1,5 +1,6 @@
 package com.lamfire.demo;
 
+import com.lamfire.code.PUID;
 import com.lamfire.hydra.Session;
 import com.lamfire.jspp.RESULT;
 import com.lamfire.jspp.SERVICE;
@@ -18,11 +19,11 @@ import com.lamfire.paladin.NSHandler;
 public class EchoHandler implements NSHandler {
     @Override
     public void service(Context ctx, SERVICE service) {
-        System.out.println(service);
+        //System.out.println(service);
         service.setType("result");
         RESULT result = new RESULT();
         result.put("method","ECHO");
-        service.setKey("abcd1234");
+        result.put("token",PUID.puidAsString());
         service.setFrom(ctx.getRemoveAddr().toString());
         service.setResult(result);
         ctx.send(service);

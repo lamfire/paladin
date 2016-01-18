@@ -8,13 +8,7 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * Created with IntelliJ IDEA.
- * User: linfan
- * Date: 16-1-18
- * Time: 上午11:41
- * To change this template use File | Settings | File Templates.
- */
+
 public class NSRegistry {
     private static final Logger LOGGER = Logger.getLogger(NSRegistry.class);
     private Map<String,NSHandler> nsMap = Maps.newHashMap();

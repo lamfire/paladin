@@ -8,13 +8,7 @@ import com.lamfire.jspp.SERVICE;
 
 import java.net.SocketAddress;
 
-/**
- * Created with IntelliJ IDEA.
- * User: linfan
- * Date: 16-1-18
- * Time: 下午2:24
- * To change this template use File | Settings | File Templates.
- */
+
 public class Context {
     private final Session session;
     private final Message message;

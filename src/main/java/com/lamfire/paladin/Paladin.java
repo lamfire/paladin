@@ -7,13 +7,7 @@ import com.lamfire.jspp.ProtocolType;
 import com.lamfire.jspp.SERVICE;
 import com.lamfire.logger.Logger;
 
-/**
- * Created with IntelliJ IDEA.
- * User: linfan
- * Date: 16-1-18
- * Time: 上午11:34
- * To change this template use File | Settings | File Templates.
- */
+
 public class Paladin implements MessageReceivedListener{
     private static final Logger LOGGER = Logger.getLogger(Paladin.class);
     private final NSRegistry registry = new NSRegistry();

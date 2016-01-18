@@ -17,7 +17,7 @@ public class Context {
         this.message = message;
     }
 
-    public SocketAddress getRemoveAddr(){
+    public SocketAddress getRemoteAddr(){
         return session.getRemoteAddress();
     }
 

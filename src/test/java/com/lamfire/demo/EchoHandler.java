@@ -24,7 +24,7 @@ public class EchoHandler implements NSHandler {
         RESULT result = new RESULT();
         result.put("method","ECHO");
         result.put("token",PUID.puidAsString());
-        service.setFrom(ctx.getRemoveAddr().toString());
+        service.setFrom(ctx.getRemoteAddr().toString());
         service.setResult(result);
         ctx.send(service);
     }

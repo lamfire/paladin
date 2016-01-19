@@ -72,12 +72,21 @@ public class PollingLoadBalance implements LoadBalance,Runnable {
         }
     }
 
+
+    private Backend lookupBackend(){
+        Backend b = backends.next();
+        while(!b.isAvailable()){
+            b = backends.next();
+        }
+        return b;
+    }
+
     private void forwardToBackend(){
         try{
             SERVICE service = frontend.takeRequest();
             Statis.getInstance().incrementForwards();
             if(service != null){
-                Backend backend = backends.next();
+                Backend backend = lookupBackend();
                 backend.send(service);
                 Statis.getInstance().incrementBackend(backend);
                 LOGGER.debug(backend + " - forward message : " + service);

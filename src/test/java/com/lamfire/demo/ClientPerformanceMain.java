@@ -31,18 +31,22 @@ public class ClientPerformanceMain {
         int count = 0;
         long startAt = System.currentTimeMillis();
         while(true){
-            //设置自定义属性
-            m.setId(count+"");
+            try{
+                //设置自定义属性
+                m.setId(count+"");
 
-            //发送消息
-            Future future = snake.send(JSPPUtils.encode(m)) ;
-            //获得响应数据
-            Message message = future.getResponse();
+                //发送消息
+                Future future = snake.send(JSPPUtils.encode(m)) ;
+                //获得响应数据
+                Message message = future.getResponse();
 
-            //每1000次输出一次响应数据及响应时间
-            if((++count) % 1000 == 0){
-                System.out.println(count +" - " + new String(message.content()) +" " + ( System.currentTimeMillis() - startAt) +"ms");
-                startAt = System.currentTimeMillis();
+                //每1000次输出一次响应数据及响应时间
+                if((++count) % 1000 == 0){
+                    System.out.println(count +" - " + new String(message.content()) +" " + ( System.currentTimeMillis() - startAt) +"ms");
+                    startAt = System.currentTimeMillis();
+                }
+            }catch (Exception e){
+                e.printStackTrace();
             }
         }
     }

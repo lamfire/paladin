@@ -77,4 +77,8 @@ public class Backend implements MessageReceivedListener{
         result = 31 * result + port;
         return result;
     }
+
+    public boolean isAvailable() {
+        return !snake.getSessionMgr().isEmpty();
+    }
 }

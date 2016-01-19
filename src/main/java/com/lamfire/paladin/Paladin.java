@@ -36,7 +36,7 @@ public class Paladin implements MessageReceivedListener{
         }
 
         if(registry.isEmpty()){
-            LOGGER.error("Not NS handler was registered,shutdown now.");
+            LOGGER.error("Not found NS handler was be registered");
             return;
         }
 

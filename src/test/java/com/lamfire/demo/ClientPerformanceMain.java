@@ -16,7 +16,7 @@ public class ClientPerformanceMain {
     public static void main(String[] args) throws Exception{
         //创建网络连接对象
         ReplySnake snake = new ReplySnake();
-        snake.startup("127.0.0.1",9100);
+        snake.startup("127.0.0.1",8888);
 
         //创建JSPP消息
         ARGS arg = new ARGS();

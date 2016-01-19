@@ -36,6 +36,7 @@ public class PollingLoadBalance implements LoadBalance,Runnable {
         Session s = frontend.getSession(sid);
         if(s  == null){
             LOGGER.error("the session["+sid+"] was closed ,ignore response : " + response );
+            Statis.getInstance().incrementTimeoutIgnores();
             return;
         }
         AttachArgs.remove(response);
@@ -89,7 +90,7 @@ public class PollingLoadBalance implements LoadBalance,Runnable {
                 Backend backend = lookupBackend();
                 backend.send(service);
                 Statis.getInstance().incrementBackend(backend);
-                LOGGER.debug(backend + " - forward message : " + service);
+                //LOGGER.debug(backend + " - forward message : " + service);
             }
         } catch (Throwable t){
             LOGGER.error(t.getMessage(), t);

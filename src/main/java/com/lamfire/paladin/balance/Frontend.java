@@ -40,7 +40,7 @@ public class Frontend implements MessageReceivedListener {
     public void onMessageReceived(Session session, Message message) {
         //decode
         SERVICE service = (SERVICE)JSPPUtils.decode(message.content());
-        LOGGER.debug("[MESSAGE] : " + service);
+        //LOGGER.debug("[MESSAGE] : " + service);
         Statis.getInstance().incrementRequests();
 
         //check Server Busy?
@@ -52,6 +52,7 @@ public class Frontend implements MessageReceivedListener {
             message.content(bytes);
             message.header().contentLength(bytes.length);
             session.send(message);
+            LOGGER.error("max wait queue,send server busy.");
             return;
         }
 
@@ -61,7 +62,7 @@ public class Frontend implements MessageReceivedListener {
             requestQueue.put(service);
             Statis.getInstance().setWaitQueueLength(requestQueue.size());
         } catch (InterruptedException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            LOGGER.warn(e.getMessage(),e);
         }
     }
 
@@ -76,9 +77,11 @@ public class Frontend implements MessageReceivedListener {
 
     public SERVICE takeRequest(){
         try {
-            return requestQueue.take();
+            SERVICE take =  requestQueue.take();
+            Statis.getInstance().setWaitQueueLength(requestQueue.size());
+            return take;
         } catch (InterruptedException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            LOGGER.warn(e.getMessage(),e);
         }
         return null;
     }

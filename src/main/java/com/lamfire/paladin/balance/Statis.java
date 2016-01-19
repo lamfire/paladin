@@ -15,7 +15,7 @@ class Statis implements Runnable{
     private static final Logger LOGGER = Logger.getLogger(Statis.class);
     private final AtomicLong requests = new AtomicLong();
     private final AtomicLong forwards = new AtomicLong();
-    private final AtomicLong ignores = new AtomicLong();
+    private final AtomicLong timeoutIgnores = new AtomicLong();
     private final AtomicLong waitQueueFullIgnores = new AtomicLong();
     private final Map<Backend,AtomicLong> backendForwards = Maps.newHashMap();
 
@@ -44,8 +44,8 @@ class Statis implements Runnable{
         forwards.incrementAndGet();
     }
 
-    public void incrementIgnores(){
-        ignores.incrementAndGet();
+    public void incrementTimeoutIgnores(){
+        timeoutIgnores.incrementAndGet();
     }
 
     public void setWaitQueueLength(long waitQueueLength){
@@ -67,7 +67,7 @@ class Statis implements Runnable{
                 "requests=" + requests +
                 ", waitQueueLength=" + waitQueueLength +
                 ", forwards=" + forwards +
-                ", ignores=" + ignores +
+                ", timeoutIgnores=" + timeoutIgnores +
                 ", backendForwards=" + backendForwards +
                 '}';
     }

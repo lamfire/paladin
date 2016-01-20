@@ -38,7 +38,7 @@ public class ClientPerformanceMain {
                 //发送消息
                 Future future = snake.send(JSPPUtils.encode(m)) ;
                 //获得响应数据
-                Message message = future.getResponse();
+                Message message = future.getResponseMessage();
 
                 //每1000次输出一次响应数据及响应时间
                 if((++count) % 1000 == 0){

@@ -34,7 +34,7 @@ public class ClientMain {
 
         //发送消息
         Future future = snake.send(JSPPUtils.encode(m)) ;
-        Message message = future.getResponse();
+        Message message = future.getResponseMessage();
         System.out.println(" [ECHO] - " + new String(message.content()) +" ");
         snake.shutdown();
     }

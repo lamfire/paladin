@@ -39,7 +39,7 @@ public class Frontend implements MessageReceivedListener {
     @Override
     public void onMessageReceived(Session session, Message message) {
         //decode
-        SERVICE service = (SERVICE)JSPPUtils.decode(message.content());
+        SERVICE service = option.getPaladinSerializer().decode(message.content());
         //LOGGER.debug("[MESSAGE] : " + service);
         Statis.getInstance().incrementRequests();
 

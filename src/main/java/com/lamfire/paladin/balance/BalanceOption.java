@@ -1,5 +1,8 @@
 package com.lamfire.paladin.balance;
 
+import com.lamfire.paladin.NormalPaladinSerializer;
+import com.lamfire.paladin.PaladinSerializer;
+
 /**
  * Created with IntelliJ IDEA.
  * User: linfan
@@ -10,6 +13,7 @@ package com.lamfire.paladin.balance;
 public class BalanceOption {
     private int maxWaitQueueLength = 1024;
     private int maxConnections = 10000;
+    private PaladinSerializer paladinSerializer = new NormalPaladinSerializer();
 
     public int getMaxWaitQueueLength() {
         return maxWaitQueueLength;
@@ -25,5 +29,16 @@ public class BalanceOption {
 
     public void setMaxConnections(int maxConnections) {
         this.maxConnections = maxConnections;
+    }
+
+    public PaladinSerializer getPaladinSerializer() {
+        return paladinSerializer;
+    }
+
+    public void setPaladinSerializer(PaladinSerializer paladinSerializer) {
+        if(paladinSerializer == null){
+            throw new NullPointerException("Paladin serializer cannot null");
+        }
+        this.paladinSerializer = paladinSerializer;
     }
 }

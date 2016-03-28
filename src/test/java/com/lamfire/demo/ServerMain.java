@@ -13,7 +13,7 @@ import com.lamfire.paladin.PaladinOption;
 public class ServerMain {
 
     public static void main(String[] args) throws Exception {
-        Paladin paladin = new Paladin("0.0.0.0",9200);
+        Paladin paladin = new Paladin("0.0.0.0",9100);
         paladin.mappingNS("com.lamfire.demo");
         paladin.startup();
     }

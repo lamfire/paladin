@@ -40,7 +40,8 @@ public class PollingLoadBalance implements LoadBalance,Runnable {
             return;
         }
         AttachArgs.remove(response);
-        Message m  = MessageFactory.message(mid,0, JSPPUtils.encode(response));
+        byte[] bytes = this.option.getPaladinSerializer().encode(response);
+        Message m  = MessageFactory.message(mid,0, bytes);
         s.send(m);
     }
 

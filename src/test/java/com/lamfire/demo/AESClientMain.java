@@ -1,9 +1,11 @@
 package com.lamfire.demo;
 
-import com.lamfire.hydra.Message;
+import com.lamfire.code.MD5;
 import com.lamfire.hydra.reply.Future;
 import com.lamfire.hydra.reply.ReplySnake;
-import com.lamfire.jspp.*;
+import com.lamfire.jspp.ARGS;
+import com.lamfire.jspp.SERVICE;
+import com.lamfire.paladin.AESPaladinSerializer;
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,7 +14,7 @@ import com.lamfire.jspp.*;
  * Time: 下午2:11
  * To change this template use File | Settings | File Templates.
  */
-public class ClientMain {
+public class AESClientMain {
     public static void main(String[] args) throws Exception{
         //创建网络连接对象
         ReplySnake snake = new ReplySnake();
@@ -33,9 +35,10 @@ public class ClientMain {
 
 
         //发送消息
-        Future future = snake.send(JSPPUtils.encode(m)) ;
-        Message message = future.getResponseMessage();
-        System.out.println(" [ECHO] - " + new String(message.content()) +" ");
+        AESPaladinSerializer serializer = new AESPaladinSerializer(MD5.digest("123456".getBytes()));
+        byte[] bytes = serializer.encode(m);
+        Future future = snake.send(bytes) ;
+        System.out.println(" [ECHO] - " + serializer.decode(future.getResponse()) +" ");
         snake.shutdown();
     }
 }

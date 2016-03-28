@@ -1,9 +1,6 @@
 package com.lamfire.paladin;
 
 import com.lamfire.hydra.*;
-import com.lamfire.jspp.JSPP;
-import com.lamfire.jspp.JSPPUtils;
-import com.lamfire.jspp.ProtocolType;
 import com.lamfire.jspp.SERVICE;
 import com.lamfire.logger.Logger;
 
@@ -23,6 +20,10 @@ public class Paladin implements MessageReceivedListener{
 
     public void setThreads(int threads){
         option.setThreads(threads);
+    }
+
+    public void setPaladingSerializer(PaladinSerializer serializer){
+        this.option.setPaladinSerializer(serializer);
     }
 
     public void mappingNS(String packageName) throws Exception {
@@ -68,11 +69,12 @@ public class Paladin implements MessageReceivedListener{
     @Override
     public void onMessageReceived(Session session, Message message) {
         byte[] bytes = message.content();
-        JSPP jspp = JSPPUtils.decode(bytes);
-        if(JSPPUtils.getProtocolType(jspp) == ProtocolType.SERVICE){
-            Context ctx = new Context(session,message);
-            executeService(ctx, (SERVICE)jspp);
+        SERVICE service = this.option.getPaladinSerializer().decode(bytes);
+        if(service == null){
             return;
         }
+
+        Context ctx = new Context(session,message,option.getPaladinSerializer());
+        executeService(ctx,service);
     }
 }

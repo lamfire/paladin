@@ -34,4 +34,16 @@ public class Context {
     public byte[] getRequestAsBytes(){
         return message.content();
     }
+
+    public Session getSession() {
+        return session;
+    }
+
+    public Message getMessage() {
+        return message;
+    }
+
+    public PaladinSerializer getSerializer() {
+        return serializer;
+    }
 }

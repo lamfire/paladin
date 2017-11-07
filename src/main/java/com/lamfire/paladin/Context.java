@@ -25,10 +25,10 @@ public class Context {
     }
 
     public synchronized void send(SERVICE service){
-        byte[] bytes = this.serializer.encode(service);
-        message.content(bytes);
-        message.header().contentLength(bytes.length);
-        session.send(message);
+        Message m = this.serializer.encode(session,service);
+        m.header().id(this.message.getId());
+        m.header().option(this.message.getOption());
+        session.send(m);
     }
 
     public byte[] getRequestAsBytes(){

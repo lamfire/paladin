@@ -69,7 +69,7 @@ public class Paladin implements MessageReceivedListener{
     @Override
     public void onMessageReceived(Session session, Message message) {
         byte[] bytes = message.content();
-        SERVICE service = this.option.getPaladinSerializer().decode(bytes);
+        SERVICE service = this.option.getPaladinSerializer().decode(session,message);
         if(service == null){
             return;
         }

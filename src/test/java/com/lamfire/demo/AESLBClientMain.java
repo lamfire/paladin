@@ -1,11 +1,14 @@
 package com.lamfire.demo;
 
 import com.lamfire.code.MD5;
+import com.lamfire.hydra.Message;
+import com.lamfire.hydra.Session;
 import com.lamfire.hydra.reply.Future;
 import com.lamfire.hydra.reply.ReplySnake;
 import com.lamfire.jspp.ARGS;
 import com.lamfire.jspp.SERVICE;
 import com.lamfire.paladin.AESPaladinSerializer;
+import com.lamfire.utils.Reflect;
 
 /**
  * Created with IntelliJ IDEA.
@@ -34,11 +37,13 @@ public class AESLBClientMain {
         m.setId("100001");
 
 
+        Session session = (Session) Reflect.on(snake).field("snake").call("getSession").get();
+
         //发送消息
-        AESPaladinSerializer serializer = new AESPaladinSerializer(MD5.digest("123456".getBytes()));
-        byte[] bytes = serializer.encode(m);
-        Future future = snake.send(bytes) ;
-        System.out.println(" [ECHO] - " + serializer.decode(future.getResponse()) +" ");
+        AESPaladinSerializer serializer = new AESPaladinSerializer();
+        Message message = serializer.encode(session,m);
+        Future future = snake.send(message.content()) ;
+        System.out.println(" [ECHO] - " + serializer.decode(session,future.getResponseMessage()) +" ");
         snake.shutdown();
     }
 }

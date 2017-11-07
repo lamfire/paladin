@@ -15,7 +15,7 @@ import com.lamfire.paladin.balance.PollingLoadBalance;
 public class AESLoadBalanceMain {
     public static void main(String[] args) {
         BalanceOption option = new BalanceOption();
-        option.setPaladinSerializer(new AESPaladinSerializer(MD5.digest("123456".getBytes())));
+        option.setPaladinSerializer(new AESPaladinSerializer());
         PollingLoadBalance balance = new PollingLoadBalance("0.0.0.0",8888,option);
         balance.addBackend("127.0.0.1",9100);
         balance.addBackend("127.0.0.1",9200);

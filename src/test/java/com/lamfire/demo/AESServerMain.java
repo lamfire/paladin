@@ -16,7 +16,7 @@ public class AESServerMain {
     public static void main(String[] args) throws Exception {
         Paladin paladin = new Paladin("0.0.0.0",9200);
         paladin.mappingNS("com.lamfire.demo");
-        paladin.setPaladingSerializer(new AESPaladinSerializer(MD5.digest("123456".getBytes())));
+        paladin.setPaladingSerializer(new AESPaladinSerializer());
         paladin.startup();
     }
 }
